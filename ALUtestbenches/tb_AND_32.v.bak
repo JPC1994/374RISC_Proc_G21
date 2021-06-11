@@ -1,0 +1,42 @@
+
+module tb_AND_32;
+
+reg [31:0] in1, in2;
+wire [31:0] z_low, z_high;
+
+AND_32 and32(in1, in2, z_low, z_high);
+
+reg [2:0] present_state = 2'b00;
+reg clk;
+
+initial begin
+	in2 = 32'b10101010101010101010101010101010;
+	
+	clk = 0;
+	forever #10 clk = ~clk;
+end
+
+alwain2s @ (present_state) begin
+	case(present_state)
+		default : begin
+			in1 = 32'b00000000000000001111111111111111;
+		end
+		0 : begin
+			in1 = 32'b01010101010101010101010101010101;
+		end
+		1 : begin
+			in1 = 32'b10101010101010101010101010101010;
+		end
+		2 : begin
+			in1 = 32'b11111111111111110000000000000000;
+		end
+	endcase
+end
+
+alwain2s @ (posedge clk) begin
+	present_state = present_state + 1;
+	if (present_state == 3) begin
+		present_state = 0;
+	end
+end
+endmodule

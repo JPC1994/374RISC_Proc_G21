@@ -1,0 +1,33 @@
+<<<<<<< HEAD
+`timescale 1ns/10ps
+module tb_Add;
+	reg [31:0] in_a, in_b;
+	wire [31:0] out_res_rc;
+	
+Add rc_adder(in_a, in_b, out_res_rc);
+	
+initial
+	begin
+		in_a <= 32'd0;
+		in_b <= 32'd0;
+		#300   	in_a <= 32'h00000022;
+					in_b <= 32'h00000024;
+	end
+	
+endmodule
+=======
+  
+`timescale 1ns/10ps
+module tb_Add;
+	reg [31:0] in_a, in_b;
+	wire [31:0] out_res_rc;
+initial
+	begin
+		in_a <= 32'd0;
+		in_b <= 32'd0;
+		#300   	in_a <= 32'b11000000000000000000000000000001;
+					in_b <= 32'b01100000000000000000000000001111;
+	end
+Add rc_adder(in_a, in_b, out_res_rc);
+endmodule
+>>>>>>> 1447c69897db319b74f0a922bd9d0fb2489793ad
